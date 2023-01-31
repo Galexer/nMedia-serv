@@ -49,7 +49,7 @@ class PostRepositoryImpl: PostRepository {
     override fun dislike(id: Long) {
         val request: Request = Request.Builder()
             .delete()
-            .url("${BASE_URL}api/posts/$id/likes")
+            .url("${BASE_URL}/api/posts/$id/likes")
             .build()
 
         client.newCall(request)

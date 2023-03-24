@@ -47,7 +47,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun save() {
         edited.value?.let {
-            repository.save(object : PostRepository.CallBack<Post> {
+            repository.save(it, object : PostRepository.CallBack<Post> {
                 override fun onSuccess(data: Post) {
                     _postCreated.postValue(Unit)
                 }
@@ -55,7 +55,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 override fun onError(e: Exception) {
                     return
                 }
-            }, it)
+            })
         }
         edited.value = empty
     }
@@ -78,7 +78,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
         if (oldLike != null) {
             if (!oldLike.likedByMe) {
-                repository.likeById(object : PostRepository.CallBack<Long> {
+                repository.likeById(id, object : PostRepository.CallBack<Long> {
                     override fun onSuccess(data: Long) {
                         _data.postValue(
                             _data.value?.copy(posts = _data.value?.posts.orEmpty()
@@ -94,9 +94,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                         _data.postValue(_data.value?.copy(posts = old))
                     }
 
-                }, id)
+                })
             } else {
-                repository.dislike(object : PostRepository.CallBack<Long> {
+                repository.dislike(id, object : PostRepository.CallBack<Long> {
                     override fun onSuccess(data: Long) {
                         _data.postValue(
                             _data.value?.copy(posts = _data.value?.posts.orEmpty()
@@ -111,14 +111,14 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     override fun onError(e: Exception) {
                         _data.postValue(_data.value?.copy(posts = old))
                     }
-                }, id)
+                })
             }
         }
     }
 
     fun removeById(id: Long) {
         val old = _data.value?.posts.orEmpty()
-        repository.removeById(object : PostRepository.CallBack<Long> {
+        repository.removeById(id, object : PostRepository.CallBack<Long> {
             override fun onSuccess(data: Long) {
                 _data.postValue(
                     _data.value?.copy(posts = _data.value?.posts.orEmpty()
@@ -131,6 +131,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 _data.postValue(_data.value?.copy(posts = old))
             }
 
-        }, id)
+        })
     }
 }

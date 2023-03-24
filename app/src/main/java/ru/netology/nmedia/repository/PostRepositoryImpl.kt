@@ -53,7 +53,7 @@ class PostRepositoryImpl : PostRepository {
 
     }
 
-    override fun likeById(callBack: PostRepository.CallBack<Long>, id: Long) {
+    override fun likeById(id: Long, callBack: PostRepository.CallBack<Long>) {
         val request: Request = Request.Builder()
             .post("".toRequestBody(jsonType))
             .url("${BASE_URL}/api/posts/$id/likes")
@@ -71,7 +71,7 @@ class PostRepositoryImpl : PostRepository {
             })
     }
 
-    override fun dislike(callBack: PostRepository.CallBack<Long>, id: Long) {
+    override fun dislike(id: Long, callBack: PostRepository.CallBack<Long>) {
         val request: Request = Request.Builder()
             .delete()
             .url("${BASE_URL}/api/posts/$id/likes")
@@ -89,9 +89,9 @@ class PostRepositoryImpl : PostRepository {
             })
     }
 
-    override fun save(callBack: PostRepository.CallBack<Post>, post: Post) {
+    override fun save(post: Post, callBack: PostRepository.CallBack<Post>) {
         val request: Request = Request.Builder()
-            .post(gson.toJson(callBack).toRequestBody(jsonType))
+            .post(gson.toJson(post).toRequestBody(jsonType))
             .url("${BASE_URL}/api/slow/posts")
             .build()
 
@@ -107,7 +107,7 @@ class PostRepositoryImpl : PostRepository {
             })
     }
 
-    override fun removeById(callBack: PostRepository.CallBack<Long>, id: Long) {
+    override fun removeById(id: Long, callBack: PostRepository.CallBack<Long>) {
         val request: Request = Request.Builder()
             .delete()
             .url("${BASE_URL}/api/slow/posts/$id")

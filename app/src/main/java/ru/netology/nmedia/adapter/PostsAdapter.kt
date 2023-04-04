@@ -65,6 +65,8 @@ class PostViewHolder(
                         .timeout(10_000)
                         .into(imageAtt)
                 }
+            } else {
+                imageAtt.visibility = View.GONE
             }
 
             menu.setOnClickListener {

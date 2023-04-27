@@ -61,7 +61,8 @@ class FeedFragment : Fragment() {
             binding.errorGroup.isVisible = state.error
             binding.emptyText.isVisible = state.empty
             if(state.toastError){
-                Toast.makeText(binding.root.context, "ошибка сервера, попробуйте еще раз", Toast.LENGTH_SHORT).show()
+                binding.retryButton.isVisible = true
+                Toast.makeText(binding.root.context, R.string.error_toast_text, Toast.LENGTH_SHORT).show()
             }
         }
 

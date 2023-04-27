@@ -22,4 +22,5 @@
     <string name="channel_remote_name">Уведомления с сервера</string>
     <string name="channel_remote_description">Уведомления с удалённого сервера</string>
     <string name="post_image_attachment">Картанка поста</string>
+    <string name="error_toast_text">Ошибка сервера, пожалуйска нажмите \"retry\" и попробуйте снова</string>
 </resources>

@@ -56,7 +56,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onError(e: Exception) {
-                    _data.postValue(FeedModel(toastError = true))
                     return
                 }
             })
@@ -97,6 +96,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     override fun onError(e: Exception) {
                         _data.postValue(_data.value?.copy(posts = old))
                         _data.postValue(FeedModel(toastError = true))
+                        loadPosts()
                     }
 
                 })
@@ -116,6 +116,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                     override fun onError(e: Exception) {
                         _data.postValue(_data.value?.copy(posts = old))
                         _data.postValue(FeedModel(toastError = true))
+                        loadPosts()
                     }
                 })
             }
@@ -136,6 +137,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             override fun onError(e: Exception) {
                 _data.postValue(_data.value?.copy(posts = old))
                 _data.postValue(FeedModel(toastError = true))
+                loadPosts()
             }
 
         })
